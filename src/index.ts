@@ -11,13 +11,13 @@ async function authMiddleware(c: any, next: any) {
   }
 }
 
-app.get("/", authMiddleware, async (c) => {
+app.get("/", async (c) => {
   return c.text(
     "Hi this is a simple hono application hosted on cloudflare-workers"
   );
 });
 
-app.post("/", async (c) => {
+app.post("/", authMiddleware, async (c) => {
   const body = await c.req.json();
   console.log(body);
   console.log(c.req.header("Authorization"));
