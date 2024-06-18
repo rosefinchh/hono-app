@@ -11,9 +11,7 @@ async function authMiddleware(c: any, next: any) {
   }
 }
 
-app.use(authMiddleware);
-
-app.get("/", async (c) => {
+app.get("/", authMiddleware, async (c) => {
   return c.text(
     "Hi this is a simple hono application hosted on cloudflare-workers"
   );
